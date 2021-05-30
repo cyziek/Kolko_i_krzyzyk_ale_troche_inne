@@ -154,7 +154,10 @@ class KolkoKrzyzyk {
             Move bestMove = findBestMove(board);
             board[bestMove.row][bestMove.col] = oponent;
             draw(board);
-            playerInsert(board);
+            boolean isPlayerInserted=playerInsert(board);
+            while (!isPlayerInserted){
+                isPlayerInserted=playerInsert(board);
+            }
         }
         draw(board);
         pcMoving(board);
@@ -185,13 +188,15 @@ class KolkoKrzyzyk {
         }
     }
 
-    public static void playerInsert(char[][] b) {
+    public static boolean playerInsert(char[][] b) {
         System.out.print("Wpisz miejsce: ");
         int[] wsp = decoder();
         if (b[wsp[0]][wsp[1]] == '_') {
             b[wsp[0]][wsp[1]] = player;
+            return true;
         } else {
-            System.out.println("Wpisano niedozwolony zmak");
+            System.out.println("To miejsce jest zajęte!");
+            return false;
         }
     }
 
