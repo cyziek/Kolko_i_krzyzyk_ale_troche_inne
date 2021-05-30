@@ -1,5 +1,6 @@
 package KolkoKrzyzyk;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 class KolkoKrzyzyk {
@@ -92,12 +93,9 @@ class KolkoKrzyzyk {
 
     static int minimax(char[][] board, int depth, Boolean isMax) {
         int score = evaluate(board);
-        if (score == 10)
-            return score - depth;
-        if (score == -10)
-            return score + depth;
-        if (!isMovesLeft(board))
-            return 0;
+        if (score == 10) return score - depth;
+        if (score == -10) return score + depth;
+        if (!isMovesLeft(board)) return 0;
         int best;
         if (isMax) {
             best = -1000;
@@ -188,7 +186,6 @@ class KolkoKrzyzyk {
     }
 
     public static void playerInsert(char[][] b) {
-
         System.out.print("Wpisz miejsce: ");
         int[] wsp = decoder();
         if (b[wsp[0]][wsp[1]] == '_') {
@@ -200,7 +197,11 @@ class KolkoKrzyzyk {
 
     public static int[] decoder() {
         Scanner sc = new Scanner(System.in);
-        String input = sc.next();
+        String input = sc.next().toLowerCase(Locale.ROOT);
+        while (!(input.equals("a1") || input.equals("a2") || input.equals("a3") || input.equals("b1") || input.equals("b2") || input.equals("b3") || input.equals("c1") || input.equals("c2") || input.equals("c3"))){
+            System.out.println("Nie ma takiego miejsca na planszy. Przykładowe miejsce: b2");
+            input = sc.next().toLowerCase(Locale.ROOT);
+        }
         char[] letters = {'a', 'b', 'c'};
         int[] wsp = new int[2];
         for (int i = 0; i < 3; i++) {
@@ -274,7 +275,6 @@ class KolkoKrzyzyk {
                     b[1][col] == b[2][col]) {
                 if (b[0][col] == oponent) {
                     isComputerWin = true;
-
                 } else if (b[0][col] == player) {
                     isPlayerWin = true;
                 }
@@ -296,15 +296,10 @@ class KolkoKrzyzyk {
                 isPlayerWin = true;
             }
         }
-        if (isComputerWin && isPlayerWin) {
-            return -1;
-        }
-        if (isPlayerWin) {
-            return 2;
-        }
-        if (isComputerWin) {
-            return 1;
-        } else return -1;
+        if (isComputerWin && isPlayerWin) return -1;
+        if (isPlayerWin) return 2;
+        if (isComputerWin) return 1;
+         else return -1;
     }
 
     public static void playerMoving(char[][] board) {
