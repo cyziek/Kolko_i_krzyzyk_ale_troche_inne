@@ -1,4 +1,3 @@
-# Kolko_i_krzyzyk_ale_troche_inne
 Gra w kółko i krzyżyk ale na troche innych zasadach
 
 
